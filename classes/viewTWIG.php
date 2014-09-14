@@ -34,8 +34,8 @@ class viewTWIG {
 
         $data=array();
         foreach($this->data as $el){
-            $data['name']=$el->name;
-            $data['num']=$el->num;
+            $data['name'][]=$el->name;
+            $data['num'][]=$el->num;
         }
         echo $this->template->render(array('d'=>$data));
 
