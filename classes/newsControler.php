@@ -16,7 +16,8 @@ class newsControler extends AControl
     public function findAll()
     {   
         $this->data =newsModel::findALL();
-        $view=new viewTWIG();
+        $view=new View();
+        //$view=new viewTWIG();// пытался вывести через twig не получилось
         $view->data=$this->data;
         $view->display();
        // $this->viewALL();
@@ -31,7 +32,8 @@ class newsControler extends AControl
     public function insertREC()
     {
         $rec=new newsModel();
-        newsModel::$record=array('name'=>$_POST['namestr']);
+        $rec->name=$_POST['namestr'];//это как бы ни к чему все равно( в абстрактной модели мы не знаем сколько полей будет
+        newsModel::$record=array('name'=>$_POST['namestr']);// можно пердать любое количество полей
         $rec->Save();
         header("Location: http://localhost/lesson2_1/index.php");
     }
@@ -45,10 +47,11 @@ class newsControler extends AControl
 
     public function modifyREC()
     {
-        $rec=new newsModel();
-        $rec->isNew=false;
-        newsModel::$record=array('name'=>$_POST['newname']);
-        newsModel::$where=array('where_field'=>'num','where_condition'=>$_POST['num']);
+        $rec =newsModel::findID($_POST['num']);
+        $rec->name=$_POST['newname'];
+        // далее для отвязки от AbsractModel ничего лучше не придумал
+        newsModel::$record=array('name'=>$_POST['newname']);// тут можно передать любое количесво полей
+        newsModel::$where=array('where_field'=>'num','where_condition'=>$_POST['num']);//любое условие
         $rec->Save();
         header("Location: http://localhost/lesson2_1/index.php");
     }

@@ -4,7 +4,7 @@ require_once __DIR__.'/vendor/twig/twig/lib/Twig/Autoloader.php';
 
 class viewTWIG {
 
-    private $temlate;
+    private $template;
     public $data;
 
     public  function __construct(){
@@ -13,22 +13,15 @@ class viewTWIG {
 
         try
         {
-            // указывае где хранятся шаблоны
-            $loader = new Twig_Loader_Filesystem(__DIR__.'/../view/');
-
-            // инициализируем Twig
-            $twig = new Twig_Environment($loader);
-
-            // подгружаем шаблон
-            $this->template = $twig->loadTemplate('all.html');
+            $loader = new Twig_Loader_Filesystem(realpath('./view'));
+            $twig = new Twig_Environment($loader,array('debug' => true));
+            $this->template = $twig->loadTemplate('test.html');
         } catch
-        (Exception $e) {
-
+        (Twig_Error $e) {
             die ('ERROR: ' . $e->getMessage());
 
         }
     }
-
 
     public function display(){
 
@@ -37,7 +30,16 @@ class viewTWIG {
             $data['name'][]=$el->name;
             $data['num'][]=$el->num;
         }
-        echo $this->template->render(array('d'=>$data));
+
+        $tmp=array('num'=>1,'name'=>'sdfgasdgas' );
+       try{
+           echo $this->template->render(array('d'=>$tmp));
+       } catch (Twig_Error $e) {
+
+           die ('ERROR: ' . $e->getMessage());
+
+       }
+
 
 
 

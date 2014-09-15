@@ -49,7 +49,7 @@
     <p>Новое название</p>
     <input type="text" name="newname" />
     <br>
-    <input type="text" name="num" />
+    <input type="number" name="num" />
     <input type="submit" name="action" value="My_Modyfy" />
 </form>
 <footer>

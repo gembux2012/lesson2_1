@@ -1,4 +1,4 @@
-<?php header('Content-Type: text/html; charset=UTF-8'); ?>
+правильно
 <table>
     <tr>
         <th>Номер</th>
@@ -6,13 +6,13 @@
     </tr>
 
 
-    {% for d in data %}
+    {% for d in tmp %}
 
     <tr>
-        <td><{{ d.num|escape }}></td>
-        <td><{{ d.name|escape }}></td>
+        <td><{{ d.num }}></td>
+        <td><{{ d.name }}></td>
     </tr>
-
+        test
     {% endfor %}
 
 </table>
